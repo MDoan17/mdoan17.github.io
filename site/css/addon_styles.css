@@ -1,0 +1,36 @@
+.btn-user {
+    padding: 0;
+    text-align:left;
+}
+.btn-highlight:hover {
+    background-image: none;
+}
+.table-row-highlight:hover {
+    background-color: #dddddd;
+}
+.table-row-highlight-success {
+    background: #f6cccc;
+}
+.table-row-highlight-success:hover {
+    background: #e6bcbc;
+}
+
+.navbar-inverse {
+    background-color: #444444;
+    border-color: #555555;
+    border-radius: 0px;
+}
+
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav>li>a {
+    color: #9d9d9d;
+}
+
+.panel-inverse {
+    color: #bbbbbb;
+    background-color: #444444;
+    border-style: none;
+}
+
+.content {
+    padding-top: 30px;
+}
