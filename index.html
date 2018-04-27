@@ -14,9 +14,24 @@
         <link rel="stylesheet" href="site/css/simplex/bootstrap.min.css">
         <link rel="stylesheet" href="site/css/addon_styles.css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+		<!--JS-->
+		<script src="site/js/carousel.js"></script>
 	</head>
 	<body>
 		<nav class="navbar navbar-inverse navbar-fixed-top">
+			<header>
+	  			<div id="headerCarousel" class="carousel slide" data-ride="carousel">
+				    <div class="carousel-inner">
+						<div id="header-image-1" class="item active">
+						</div>
+						<div id="header-image-2" class="item">
+						</div>
+						<div id="header-image-3" class="item">
+						</div>
+				    </div>
+				</div>
+			</header>
 	    	<div class="container-fluid">
 		    	<div class="navbar-header">
 					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -117,14 +132,23 @@
 											</div>
 											<div id="projects_1" class="panel-collapse collapse in">
 												<div class="panel-body">
-													<p>
-														This is a test for a project panel template.
-													</p>
-													<p>
-														Currently this template is being built, the idea being it would have
-														options to run/download, view the source code, potentially an image,
-														and a description of sorts.
-													</p>
+													<div class="hidden-xs project-image">
+														<div class="img-template"></div>
+													</div>
+													<div class="project-infobox">
+														<p>
+															This is a test for a project panel template.
+														</p>
+														<p>
+															Currently this template is being built, the idea being it would have
+															options to run/download, view the source code, potentially an image,
+															and a description of sorts.
+														</p>
+													</div>
+													<div class="project-footer pull-right">
+														<button class="btn btn-primary">Run</button>
+														<button class="btn btn-primary">Download</button>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -140,14 +164,23 @@
 											</div>
 											<div id="projects_2" class="panel-collapse collapse">
 												<div class="panel-body">
-													<p>
-														This is a test for a project panel template.
-													</p>
-													<p>
-														Currently this template is being built, the idea being it would have
-														options to run/download, view the source code, potentially an image,
-														and a description of sorts.
-													</p>
+													<div class="hidden-xs project-image">
+														<div class="img-template"></div>
+													</div>
+													<div class="project-infobox">
+														<p>
+															This is a test for a project panel template.
+														</p>
+														<p>
+															Currently this template is being built, the idea being it would have
+															options to run/download, view the source code, potentially an image,
+															and a description of sorts.
+														</p>
+													</div>
+													<div class="project-footer pull-right">
+														<button class="btn btn-primary">Run</button>
+														<button class="btn btn-primary">Download</button>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -163,14 +196,23 @@
 											</div>
 											<div id="projects_3" class="panel-collapse collapse">
 												<div class="panel-body">
-													<p>
-														This is a test for a project panel template.
-													</p>
-													<p>
-														Currently this template is being built, the idea being it would have
-														options to run/download, view the source code, potentially an image,
-														and a description of sorts.
-													</p>
+													<div class="hidden-xs project-image">
+														<div class="img-template"></div>
+													</div>
+													<div class="project-infobox">
+														<p>
+															This is a test for a project panel template.
+														</p>
+														<p>
+															Currently this template is being built, the idea being it would have
+															options to run/download, view the source code, potentially an image,
+															and a description of sorts.
+														</p>
+													</div>
+													<div class="project-footer pull-right">
+														<button class="btn btn-primary">Run</button>
+														<button class="btn btn-primary">Download</button>
+													</div>
 												</div>
 											</div>
 										</div>
@@ -200,15 +242,22 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-sm-4 col-md-3" id="sidebarContainer">
+				<div class="col-sm-4 col-md-3 hidden-xs" id="sidebarContainer">
 					<div class="panel panel-default">
 						<div class="panel-heading">
 							<h2>Side Bar Placeholder</h2>
 						</div>
 						<div class="panel-body">
-							<p>
+							<p class="indent">
 								Lorem ipsum dolor sit amet, consectetur adipiscing elit. In fringilla porttitor leo, et tempus tellus auctor sit amet. Mauris pretium, neque et pulvinar ultricies, erat ante mollis dui, et sodales nibh metus id enim. Suspendisse interdum, eros ac suscipit dignissim, arcu dui semper sapien, sit amet pellentesque magna odio eu tortor. Mauris a erat felis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc fringilla mattis odio. Curabitur eget ante sit amet ipsum aliquam tempor. Vivamus a sollicitudin metus. Integer interdum nisl sed fermentum pellentesque. Praesent et dui justo. Donec et quam et orci placerat dapibus eget eu leo. Quisque eget sem vitae urna suscipit maximus.
-
+							</p>
+							<p class="indent">
+								Praesent nec nibh non augue sodales tempor id id tortor. Praesent tellus dui, rutrum a consequat pharetra, tristique vitae neque. Sed tincidunt porta enim, quis vestibulum augue tempor quis. Mauris orci nisl, malesuada sit amet lectus a, pretium ultricies magna. Vestibulum sit amet tortor convallis, pretium arcu ac, tempor massa. Donec sed justo eget sapien volutpat fermentum eget in risus. Pellentesque tincidunt, sapien in facilisis vestibulum, ex nisl porta ante, non condimentum magna erat vel ligula. Vivamus mi orci, cursus ac tortor a, blandit posuere eros. Quisque hendrerit massa velit, ultricies venenatis leo feugiat non. Fusce hendrerit, arcu quis ultricies lacinia, tellus orci varius nisi, in faucibus ante tellus sit amet libero. Suspendisse potenti. Aliquam a dictum mi. Suspendisse ornare mattis massa ut tempus. Integer sed arcu tincidunt, egestas libero et, tristique sem.
+							</p>
+							<p class="indent">
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. In fringilla porttitor leo, et tempus tellus auctor sit amet. Mauris pretium, neque et pulvinar ultricies, erat ante mollis dui, et sodales nibh metus id enim. Suspendisse interdum, eros ac suscipit dignissim, arcu dui semper sapien, sit amet pellentesque magna odio eu tortor. Mauris a erat felis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc fringilla mattis odio. Curabitur eget ante sit amet ipsum aliquam tempor. Vivamus a sollicitudin metus. Integer interdum nisl sed fermentum pellentesque. Praesent et dui justo. Donec et quam et orci placerat dapibus eget eu leo. Quisque eget sem vitae urna suscipit maximus.
+							</p>
+							<p class="indent">
 								Praesent nec nibh non augue sodales tempor id id tortor. Praesent tellus dui, rutrum a consequat pharetra, tristique vitae neque. Sed tincidunt porta enim, quis vestibulum augue tempor quis. Mauris orci nisl, malesuada sit amet lectus a, pretium ultricies magna. Vestibulum sit amet tortor convallis, pretium arcu ac, tempor massa. Donec sed justo eget sapien volutpat fermentum eget in risus. Pellentesque tincidunt, sapien in facilisis vestibulum, ex nisl porta ante, non condimentum magna erat vel ligula. Vivamus mi orci, cursus ac tortor a, blandit posuere eros. Quisque hendrerit massa velit, ultricies venenatis leo feugiat non. Fusce hendrerit, arcu quis ultricies lacinia, tellus orci varius nisi, in faucibus ante tellus sit amet libero. Suspendisse potenti. Aliquam a dictum mi. Suspendisse ornare mattis massa ut tempus. Integer sed arcu tincidunt, egestas libero et, tristique sem.
 							</p>
 						</div>
