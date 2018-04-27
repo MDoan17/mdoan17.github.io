@@ -8,8 +8,6 @@
         <!-- Dependencies -->
         <script src="site/js/dependencies/jquery-3.3.1.min.js"></script>
         <script src="site/js/dependencies/bootstrap.min.js"></script>
-        <script src="site/js/dependencies/gmaps.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8uRF_FEtMmTZ0B4WnNl654PXFvPY8duA"></script>
 
         <!-- Stylesheets -->
         <link rel="stylesheet" href="site/css/bootstrap.min.css">
@@ -18,21 +16,208 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	</head>
 	<body>
-        <div class="container-fluid">
-            <div class="row" id="content">
-                <nav class="navbar navbar-inverse">
-                    <div class="container-fluid">
-                        <div class="navbar-header">
-                            <a class="navbar-brand" href="#">Projects</a>
-                        </div>
-                        <ul class="nav navbar-nav">
-                            <li class="active"><a href="#">Home</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Contact</a></li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+	    	<div class="container-fluid">
+		    	<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+			        	<span class="sr-only">Toggle navigation</span>
+			        	<span class="icon-bar"></span>
+			        	<span class="icon-bar"></span>
+			        	<span class="icon-bar"></span>
+			        </button>
+		        	<a class="navbar-brand" href="#">Projects</a>
+	            </div>
+				<div class="navbar-collapse collapse" id="navbar">
+		            <ul class="nav navbar-nav">
+		            	<li class="active"><a href="#">Home</a></li>
+		                <li><a href="#">About</a></li>
+		                <li><a href="#">Contact</a></li>
+		            </ul>
+				</div>
+	        </div>
+		</nav>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-sm-8 col-md-7 col-md-offset-1" id="projectContainer">
+					<div class="panel-group">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+  					        	<h1>
+									<a class="panel-link" data-toggle="collapse" href="#updates">Recent Updates</a>
+								</h1>
+							</div>
+  					      	<div id="updates" class="panel-collapse collapse in">
+								<div class="panel-body">
+									<!--Update 1-->
+									<div class="panel-group">
+										<div class="panel panel-default">
+											<div class="panel-heading">
+				  					        	<h4>
+													<a class="panel-link" data-toggle="collapse" href="#updates_1">Up and Running!</a>
+													<small class="pull-right">April 26, 2018</small>
+												</h4>
+											</div>
+				  					      	<div id="updates_1" class="panel-collapse collapse in">
+												<div class="panel-body">
+													<p>
+														Welcome to my GitHub page! Pardon the dust as construction of the site is underway.
+													</p>
+													<p>
+														This will be the center of all of my personal projects. A simple way to connect with
+														what I am working on currently and a little show of what I have made. I am excited to
+														be working on this and my projects to come!
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--Update 2-->
+									<div class="panel-group">
+										<div class="panel panel-default">
+											<div class="panel-heading">
+				  					        	<h4>
+													<a class="panel-link" data-toggle="collapse" href="#updates_2">The Start of a Journey</a>
+													<small class="pull-right">April 26, 2018</small>
+												</h4>
+											</div>
+				  					      	<div id="updates_2" class="panel-collapse collapse">
+												<div class="panel-body">
+													<blockquote>
+														<p>"We are what we repeatedly do. Excellence, then, is not an act but a habit."</p>
+														<footer>Aristole</footer>
+													</blockquote>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-footer">
+									<h5><small>All work is produced by myself with use of open-source frameworks, libraries, etc.</h5></small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel-group">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+  					        	<h1>
+									<a class="panel-link" data-toggle="collapse" href="#projects">Projects</a>
+								</h1>
+							</div>
+  					      	<div id="projects" class="panel-collapse collapse in">
+								<div class="panel-body">
+									<!--Project 1-->
+									<div class="panel-group">
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h4>
+													<a class="panel-link" data-toggle="collapse" href="#projects_1">Test Project 1</a>
+													<small class="pull-right">Last Updated: April 26, 2018</small>
+												</h4>
+											</div>
+											<div id="projects_1" class="panel-collapse collapse in">
+												<div class="panel-body">
+													<p>
+														This is a test for a project panel template.
+													</p>
+													<p>
+														Currently this template is being built, the idea being it would have
+														options to run/download, view the source code, potentially an image,
+														and a description of sorts.
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--Project 2-->
+									<div class="panel-group">
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h4>
+													<a class="panel-link" data-toggle="collapse" href="#projects_2">Test Project 2</a>
+													<small class="pull-right">Last Updated: April 26, 2018</small>
+												</h4>
+											</div>
+											<div id="projects_2" class="panel-collapse collapse">
+												<div class="panel-body">
+													<p>
+														This is a test for a project panel template.
+													</p>
+													<p>
+														Currently this template is being built, the idea being it would have
+														options to run/download, view the source code, potentially an image,
+														and a description of sorts.
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!--Project 3-->
+									<div class="panel-group">
+										<div class="panel panel-default">
+											<div class="panel-heading">
+												<h4>
+													<a class="panel-link" data-toggle="collapse" href="#projects_3">Test Project 3</a>
+													<small class="pull-right">Last Updated: April 26, 2018</small>
+												</h4>
+											</div>
+											<div id="projects_3" class="panel-collapse collapse">
+												<div class="panel-body">
+													<p>
+														This is a test for a project panel template.
+													</p>
+													<p>
+														Currently this template is being built, the idea being it would have
+														options to run/download, view the source code, potentially an image,
+														and a description of sorts.
+													</p>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="panel-footer">
+									<h5><small>All work is produced by myself with use of open-source frameworks, libraries, etc.</h5></small>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="panel-group">
+						<div class="panel panel-default">
+							<div class="panel-heading">
+  					        	<h1>
+									<a class="panel-link" data-toggle="collapse" href="#tempid">Other</a>
+								</h1>
+							</div>
+  					      	<div id="tempid" class="panel-collapse collapse">
+								<div class="panel-body">
+									Nothing here yet!
+								</div>
+								<div class="panel-footer">
+									<h5><small>All work is produced by myself with use of open-source frameworks, libraries, etc.</h5></small>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-4 col-md-3" id="sidebarContainer">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h2>Side Bar Placeholder</h2>
+						</div>
+						<div class="panel-body">
+							<p>
+								Lorem ipsum dolor sit amet, consectetur adipiscing elit. In fringilla porttitor leo, et tempus tellus auctor sit amet. Mauris pretium, neque et pulvinar ultricies, erat ante mollis dui, et sodales nibh metus id enim. Suspendisse interdum, eros ac suscipit dignissim, arcu dui semper sapien, sit amet pellentesque magna odio eu tortor. Mauris a erat felis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nunc fringilla mattis odio. Curabitur eget ante sit amet ipsum aliquam tempor. Vivamus a sollicitudin metus. Integer interdum nisl sed fermentum pellentesque. Praesent et dui justo. Donec et quam et orci placerat dapibus eget eu leo. Quisque eget sem vitae urna suscipit maximus.
+
+								Praesent nec nibh non augue sodales tempor id id tortor. Praesent tellus dui, rutrum a consequat pharetra, tristique vitae neque. Sed tincidunt porta enim, quis vestibulum augue tempor quis. Mauris orci nisl, malesuada sit amet lectus a, pretium ultricies magna. Vestibulum sit amet tortor convallis, pretium arcu ac, tempor massa. Donec sed justo eget sapien volutpat fermentum eget in risus. Pellentesque tincidunt, sapien in facilisis vestibulum, ex nisl porta ante, non condimentum magna erat vel ligula. Vivamus mi orci, cursus ac tortor a, blandit posuere eros. Quisque hendrerit massa velit, ultricies venenatis leo feugiat non. Fusce hendrerit, arcu quis ultricies lacinia, tellus orci varius nisi, in faucibus ante tellus sit amet libero. Suspendisse potenti. Aliquam a dictum mi. Suspendisse ornare mattis massa ut tempus. Integer sed arcu tincidunt, egestas libero et, tristique sem.
+							</p>
+						</div>
+						<div class="panel-footer">
+							<h5><small>All work is produced by myself with use of open-source frameworks, libraries, etc.</h5></small>
+						</div>
+					</div>
+				</div>
+			</div>
         </div>
 	</body>
 </html>

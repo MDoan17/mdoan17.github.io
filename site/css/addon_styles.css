@@ -1,18 +1,6 @@
-.btn-user {
-    padding: 0;
-    text-align:left;
-}
-.btn-highlight:hover {
-    background-image: none;
-}
-.table-row-highlight:hover {
-    background-color: #dddddd;
-}
-.table-row-highlight-success {
-    background: #f6cccc;
-}
-.table-row-highlight-success:hover {
-    background: #e6bcbc;
+body {
+  min-height: 2000px;
+  padding-top: 70px;
 }
 
 .navbar-inverse {
@@ -25,12 +13,20 @@
     color: #9d9d9d;
 }
 
-.panel-inverse {
-    color: #bbbbbb;
-    background-color: #444444;
-    border-style: none;
+.content {
+    padding-top: 50px;
 }
 
-.content {
-    padding-top: 30px;
+.panel-link:hover {
+    text-decoration: none;
+    color: #91170a;
+}
+
+.panel-link:hover:focus {
+    text-decoration: none;
+    color: #91170a;
+}
+.panel-link:visited, .panel-link:focus {
+    text-decoration: none;
+    color: #d9230f;
 }
