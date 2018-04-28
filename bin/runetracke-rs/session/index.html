@@ -11,10 +11,6 @@
             var currentData = [];
             var static_rsn = "Maddie_May";
 
-            $(document).ready(function() {
-                startData(static_rsn);
-            });
-
             function startData(rsn) {
                 $.ajax({
                     method: "GET",
@@ -47,6 +43,10 @@
                     }
                 });
             }
+
+            $(document).ready(function() {
+                startData(static_rsn);
+            });
         </script>
     </head>
     <body>
