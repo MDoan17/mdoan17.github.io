@@ -39,8 +39,8 @@ function projectPanel(id, project) {
     +                    panelContent(id, project.tag, project.attributes, project.content)
     +                '</div>'
     +                '<div class="project-footer pull-right">'
-    +                    '<button class="btn btn-primary">Run</button> '
-    +                    '<button class="btn btn-primary">Source</button>'
+    +                    '<a href="' + project.buttons.run.link + '" class="btn btn-primary ' + (project.buttons.run.disabled ? "disabled" : "") + '">Run</a> '
+    +                    '<a href="' + project.buttons.source.link + '" class="btn btn-primary ' + (project.buttons.source.disabled ? "disabled" : "") + '">Source</a>'
     +                '</div>'
     +            '</div>'
     +        '</div>'
