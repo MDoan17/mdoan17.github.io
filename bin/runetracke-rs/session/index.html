@@ -15,6 +15,9 @@
                 url: "https://runetracke-rs.herokuapp.com/?isSession=false&rsn=Ceren",
                 success: function(data) {
                     startData = data;
+                    for (var i = 0; i < 28; i++) {
+                        $("#data").html($("#data").html() + "<tr><td>" + i + "</td><td>" + startData[i] + "</td><td></td><td></td></tr>");
+                    }
                 }
             })
 
@@ -25,10 +28,6 @@
                 	currentData = data;
             	}
             })
-
-            for (var i = 0; i < 29; i++) {
-                $("#data").html($("#data").html() + "<tr><td>" + i + "</td><td>" + startData[i] + "</td><td></td><td></td></tr>");
-            }
         </script>
     </head>
     <body>
