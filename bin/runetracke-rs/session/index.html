@@ -11,7 +11,7 @@
             var currentData = [];
             var static_rsn = "Maddie_May";
 
-            function startData(rsn) {
+            function sData(rsn) {
                 $.ajax({
                     method: "GET",
                     url: "https://runetracke-rs.herokuapp.com/?isSession=false&rsn=" + rsn,
@@ -20,12 +20,12 @@
                         for (var i = 0; i < 28; i++) {
                             $("#data").html($("#data").html() + "<tr id=" + i + "><td class='skill'>" + i + "</td><td class='start'>" + startData[i][2] + "</td><td class='current'></td><td class='delta'></td></tr>");
                         }
-                        currentData(rsn);
+                        cData(rsn);
                     }
                 });
             }
 
-            function currentData(rsn) {
+            function cData(rsn) {
                 $.ajax({
                     method: "GET",
                     url: "https://runetracke-rs.herokuapp.com/?isSession=true&rsn=" + rsn,
@@ -45,7 +45,7 @@
             }
 
             $(document).ready(function() {
-                startData(static_rsn);
+                sData(static_rsn)
             });
         </script>
     </head>
