@@ -9,35 +9,44 @@
         <script>
             var startData = [];
             var currentData = [];
-            var rsn = "Maddie_May";
+            var static_rsn = "Maddie_May";
 
-            $.ajax({
-                method: "GET",
-                url: "https://runetracke-rs.herokuapp.com/?isSession=false&rsn=" + rsn,
-                success: function(data) {
-                    startData = data;
-                    for (var i = 0; i < 28; i++) {
-                        $("#data").html($("#data").html() + "<tr id=" + i + "><td class='skill'>" + i + "</td><td class='start'>" + startData[i][2] + "</td><td class='current'></td><td class='delta'></td></tr>");
-                    }
-                }
-            });
+            $(document).ready(function {
+                startData(static_rsn);
+            })
 
-            $.ajax({
-            	method: "GET",
-            	url: "https://runetracke-rs.herokuapp.com/?isSession=true&rsn=" + rsn,
-            	success: function(data) {
-                	currentData = data;
-                    var totalXP = 0;
-                    for (var i = 0; i < currentData.skillvalues.length; i++) {
-                        var skillXP = Math.floor(currentData.skillvalues[i].xp / 10);
-                        $("#" + (currentData.skillvalues[i].id + 1)).children(".current").html(skillXP);
-                        $("#" + (currentData.skillvalues[i].id + 1)).children(".delta").html(skillXP - $("#" + (currentData.skillvalues[i].id + 1)).children(".start").html());
-                        totalXP += skillXP;
+            function startData(rsn) {
+                $.ajax({
+                    method: "GET",
+                    url: "https://runetracke-rs.herokuapp.com/?isSession=false&rsn=" + rsn,
+                    success: function(data) {
+                        startData = data;
+                        for (var i = 0; i < 28; i++) {
+                            $("#data").html($("#data").html() + "<tr id=" + i + "><td class='skill'>" + i + "</td><td class='start'>" + startData[i][2] + "</td><td class='current'></td><td class='delta'></td></tr>");
+                        }
+                        currentData(rsn);
                     }
-                    $("#0").children(".current").html(totalXP);
-                    $("#0").children(".delta").html(totalXP - $("#0").children(".start").html());
-            	}
-            });
+                });
+            }
+
+            function currentData(rsn) {
+                $.ajax({
+                    method: "GET",
+                    url: "https://runetracke-rs.herokuapp.com/?isSession=true&rsn=" + rsn,
+                    success: function(data) {
+                        currentData = data;
+                        var totalXP = 0;
+                        for (var i = 0; i < currentData.skillvalues.length; i++) {
+                            var skillXP = Math.floor(currentData.skillvalues[i].xp / 10);
+                            $("#" + (currentData.skillvalues[i].id + 1)).children(".current").html(skillXP);
+                            $("#" + (currentData.skillvalues[i].id + 1)).children(".delta").html(skillXP - $("#" + (currentData.skillvalues[i].id + 1)).children(".start").html());
+                            totalXP += skillXP;
+                        }
+                        $("#0").children(".current").html(totalXP);
+                        $("#0").children(".delta").html(totalXP - $("#0").children(".start").html());
+                    }
+                });
+            }
         </script>
     </head>
     <body>
