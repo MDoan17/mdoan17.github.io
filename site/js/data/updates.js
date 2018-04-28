@@ -13,7 +13,7 @@ var updates = [
             {
                 "tag": "footer",
                 "attributes": "",
-                "text": "Aristole"
+                "text": "Aristotle"
             }
         ]
     },

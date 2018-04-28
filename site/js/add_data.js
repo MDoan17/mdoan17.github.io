@@ -40,7 +40,7 @@ function projectPanel(id, project) {
     +                '</div>'
     +                '<div class="project-footer pull-right">'
     +                    '<button class="btn btn-primary">Run</button> '
-    +                    '<button class="btn btn-primary">Download</button>'
+    +                    '<button class="btn btn-primary">Source</button>'
     +                '</div>'
     +            '</div>'
     +        '</div>'
