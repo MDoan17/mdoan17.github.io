@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <title>Mike Doan - Projects</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Dependencies -->
+        <script src="site/js/dependencies/jquery-3.3.1.min.js"></script>
+        <script>
+            var startData = [];
+            var currentData = [];
+
+            $.ajax({
+                method: "GET",
+                url: "https://runetracke-rs.herokuapp.com/?isSession=false&rsn=Ceren",
+                success: function(data) {
+                    startData = data;
+                }
+            })
+
+            $.ajax({
+            	method: "GET",
+            	url: "https://runetracke-rs.herokuapp.com/?isSession=true&rsn=Ceren",
+            	success: function(data) {
+                	currentData = data;
+            	}
+            })
+
+            for (var i = 0; i < 29; i++) {
+                $("#data").html($("#data").html() + "<tr><td>" + i + "</td><td>" + startData[i] + "</td><td></td><td></td></tr>");
+            }
+        </script>
+    </head>
+    <body>
+        <h1>RuneTracke-rs Session</h1>
+        <table>
+            <tbody id="data">
+                <tr>
+                    <th>Skill</th>
+                    <th>Start XP</th>
+                    <th>Current XP</th>
+                    <th>XP Delta</th>
+                </tr>
+            </tbody>
+        </table>
+    </body>
+</html>
