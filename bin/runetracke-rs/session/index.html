@@ -6,10 +6,18 @@
 
         <!-- Dependencies -->
         <script src="../site/js/dependencies/jquery-3.3.1.min.js"></script>
+        <script src="../site/js/dependencies/bootstrap.min.js"></script>
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="../site/css/bootstrap/bootstrap.min.css">
+        <link rel="stylesheet" href="../site/css/simplex/bootstrap.min.css">
+        <link rel="stylesheet" href="../site/css/addon_styles.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
         <script>
             var startData = [];
             var currentData = [];
-            var static_rsn = "Maddie_May";
+            var static_rsn = "MoreTickles";
 
             function sData(rsn) {
                 $.ajax({
@@ -51,7 +59,7 @@
     </head>
     <body>
         <h1>RuneTracke-rs Session</h1>
-        <table>
+        <table class="table table-default">
             <tbody id="data">
                 <tr>
                     <th>Skill</th>
