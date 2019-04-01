@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CityLAB WiFi - Prototype</title>
+        <style type='text/css'>body{margin:0;padding:0;overflow:hidden;font-family:'Segoe UI',Helvetica,Arial,Sans-Serif}</style>
+        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+        <script type='text/javascript' src='data/Neighbourhood_Boundaries.js'></script>
+        <script type='text/javascript' src='data/Neighbourhood_Factors.js'></script>
+        <script type='text/javascript' src='data/wifi_locations.js'></script>
+        <script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?key=Aoc6Fvw7bjYf0uQDW5dKaqJ39TDtvAGteRjoW2dFuCBO6dgjIEwxOiBNWm1vSIwV'></script>
+        <script type='text/javascript'>
+                var map;
+                var infobox;
+                var polygons = [];
+                var neighbourhoods = boundaries.features;
+                var polygon;
+                var factor_weights = [1,11,12,4];
+                var min = 10000000;
+                var max = 0;
+                var isWifi = false;
+
+                //wifi rest example url: http://dev.virtualearth.net/REST/v1/Locations/CA/ON//Hamilton/71%20Main%20St%20W?o=json&key=Aoc6Fvw7bjYf0uQDW5dKaqJ39TDtvAGteRjoW2dFuCBO6dgjIEwxOiBNWm1vSIwV
+
+                function loadMapScenario() {
+                    map = new Microsoft.Maps.Map(document.getElementById('myMap'), {});
+
+                    infobox = new Microsoft.Maps.Infobox(map.getCenter(), {
+                        title: 'Title',
+                        description: 'Description',
+                        visible: false
+                    });
+                    infobox.setMap(map);
+
+                    var count = 0;
+                    neighbourhoods.forEach(function(e) {
+                        polygon = coordsToPoly(e.geometry.coordinates, count++);
+                        polygons.push(polygon);
+                    });
+                    count = 0;
+                    polygons.forEach(function(e) {
+                        e.setOptions({ fillColor: factorColor(factorSum(factors.factors[count++]))});
+                    });
+                    map.entities.push(polygons);
+
+                    putPushpins();
+
+                }
+
+                function putPushpins() {
+                    var pushpins = []
+
+                    wifi_locations.forEach(function(e) {
+                        if (e["wireless"] == "yes" || !isWifi) {
+                            var pushpin_color = e["wireless"] == "yes" ? "#1414AD" : "#AD14AD";
+                            var pushpin = new Microsoft.Maps.Pushpin(new Microsoft.Maps.Location(parseFloat(e["lat"]), parseFloat(e["long"])), {
+                                color: pushpin_color
+                            });
+                            pushpinClick = new Microsoft.Maps.Events.addHandler(pushpin, 'click', function(i) {
+                                infobox.setOptions({
+                                    //Use the location of where the mouse was clicked to position the infobox
+                                    title: e["name"],
+                                    description: e["street_num"] + " " + e["street_name"] + "<br>Latitude: " + e["lat"] + "<br>Longitude: " + e["long"],
+                                    location: i.target.getLocation(),
+                                    visible: true
+                                });
+                            });
+                            pushpins.push(pushpin);
+                        }
+                    });
+                    map.entities.push(pushpins);
+                }
+
+                function coordsToPoly(coordsList, id) {
+                    var mmlData = [];
+                    coordsList[0].forEach(function(e){
+                        mmlData.push(new Microsoft.Maps.Location(e[1], e[0]));
+                    });
+                    var factor_value = factorSum(factors.factors[id]);
+                    min = factor_value < min ? factor_value : min
+                    max = factor_value > max ? factor_value : max;
+                    return (new Microsoft.Maps.Polygon(mmlData, null));
+                }
+
+                function factorSum(f) {
+                    var fs = [f.factor1, f.factor2, f.factor3, f.factor4];
+                    var sum = fs[0] * factor_weights[0] + fs[1] * factor_weights[1] + fs[2] * factor_weights[2] + fs[3] * factor_weights[3];
+                    return sum;
+                }
+
+                function factorColor(sum) {
+                    var percent_color = (sum - min) / (max - min);
+
+                    var red = Math.min(percent_color / 0.5, 1);
+                    var green = Math.min((1 - percent_color) / 0.5, 1);
+                    var blue = (red + green - 1);
+
+                    red = Math.floor(red * 255).toString(16);
+                    green = Math.floor(green * 255).toString(16);
+                    blue = Math.floor(blue * 255).toString(16);
+
+                    var hr = red.length == 1 ? "0" + red : red;
+                    var hg = green.length == 1 ? "0" + green : green;
+                    var hb = blue.length == 1 ? "0" + blue : blue;
+
+                    return '#'+hr+hg+hb;
+                }
+
+                function colorPolygon(id) {
+                    return factorColor(factorSum(id));
+                }
+
+                function removePins() {
+                    for (var i = map.entities.getLength() - 1; i >= 0; i--) {
+                        var pushpin = map.entities.get(i);
+                        if (pushpin instanceof Microsoft.Maps.Pushpin) {
+                            map.entities.removeAt(i);
+                        }
+                    }
+                }
+
+                function filterWiFi() {
+                    isWifi = !isWifi;
+                    removePins();
+                    putPushpins();
+                    $('#btn_wifi').toggleClass('btn-primary');
+                }
+
+        </script>
+    </head>
+    <body onload='loadMapScenario();'>
+        <div id='printoutPanel'></div>
+        <div id='myMap' style='width: 90vw; height: 100vh; float: left;'></div>
+        <div style='width: 10vw; height: 100vh; float: right; padding: 10px; background-color:#EEE;'>
+          <h1 style='text-align: center; border-bottom: solid 1px black;'>Hamilton Public WiFi Evaluator</h1>
+          <button id='btn_wifi' class='btn' style='width: 100%;-'onclick="filterWiFi()">WiFi Locations Only</button>
+          <div style='height: 1vh;'></div>
+          <table>
+            <tr>
+              <td rowspan=2>
+                <div style='width: 2vw; height: 10vh; background-image: linear-gradient(red, white, green); float: left;'></div>
+              </td>
+              <td style='vertical-align: top;'>High</td>
+              <td style='width: 10px;'></td>
+              <td>
+                <div style='width: 20px; height: 20px; background-color: blue; float: right; border-radius: 10px;'></div>
+              </td>
+              <td>WiFi</td>
+            </tr>
+            <tr>
+              <td style='vertical-align: bottom;'>Low</td>
+              <td style='width: 10px;'></td>
+              <td>
+                <div style='width: 20px; height: 20px; background-color: purple; float: right; border-radius: 10px;'></div>
+              </td>
+              <td>No WiFi</td>
+            </tr>
+          </table>
+          <div style='width: 100%; height: 1vh; float: left; '></div>
+          <div style='width: 100%; float: left; vertical-align: bottom; border-top: solid 1px black;'><p>Project by Mike Doan, Justin Hayter and Murray Lang of Mohawk College</p></div>
+        </div>
+    </body>
+</html>
