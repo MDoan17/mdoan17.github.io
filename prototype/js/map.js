@@ -3,9 +3,11 @@ var infobox;
 var polygons = [];
 var nh_pops = [];
 var nh_ages = [];
+var nh_pd = [];
+var nh_hhs = [];
 var neighbourhoods = boundaries.features;
 var polygon;
-var factor_weights = [7,2,5,4];
+var factor_weights = [6,4,5,7];
 var min = 10000000;
 var max = 0;
 var isWifi = false;
@@ -17,8 +19,12 @@ function loadMapScenario() {
 
     getPopulation();
     getAge();
+    getPopDens();
+    getHHSize();
     setPopulation();
     setAge();
+    setPopDens();
+    setHHSize();
 
     infobox = new Microsoft.Maps.Infobox(map.getCenter(), {
         title: 'Title',
@@ -190,7 +196,7 @@ function getAge() {
     for (n in neighbourhoods) {
     	var nh_num = neighbourhoods[n].properties.NH_NUMBER;
     	var sum = 0;
-        var c = 0;
+      var c = 0;
     	for (key in census_tract[0].features[38].properties) {
     		if (key.includes("_5370" + nh_num + "_")) {
     			sum += Number(census_tract[0].features[38].properties[key]);
@@ -238,6 +244,113 @@ function setAge() {
         }
     }
 }
+
+function getPopDens() {
+    for (n in neighbourhoods) {
+    	var nh_num = neighbourhoods[n].properties.NH_NUMBER;
+    	var sum = 0;
+      var c = 0;
+    	for (key in census_tract[0].features[5].properties) {
+    		if (key.includes("_5370" + nh_num + "_")) {
+    			sum += Number(census_tract[0].features[5].properties[key]);
+                c++;
+    		}
+    	}
+        if (isNaN(sum/c)) {
+            nh_pd.push([nh_num, 0]);
+        } else {
+            nh_pd.push([nh_num, sum/c]);
+        }
+    }
+}
+
+function maxPopDens() {
+    var max_pd = 0;
+    for (i = 0; i < nh_ages.length; i++){
+        if (max_pd < Number(nh_pd[i][1])) {
+            max_pd = Number(nh_pd[i][1]);
+        }
+    }
+    return max_pd;
+}
+
+function avgPopDens() {
+    var sum_pd = 0;
+    var amount = 0;
+    for (i = 0; i < nh_pd.length; i++){
+        if (Number(nh_pd[i][1]) > 0) {
+            sum_pd += Number(nh_pd[i][1]);
+            amount++;
+        }
+    }
+    return sum_pd/amount;
+}
+
+function setPopDens() {
+    var max_dens = maxPopDens();
+    var avg_dens = avgPopDens();
+    for (i = 0; i < nh_pd.length; i++){
+        if (Number(nh_pd[i][1]) > 0) {
+            factors.factors[i].factor3 = (max_dens - Number(nh_pd[i][1])) * 10 / max_dens;
+        } else {
+            factors.factors[i].factor3 = (max_dens - avg_dens) * 10 / max_dens;
+        }
+    }
+}
+
+function getHHSize() {
+    for (n in neighbourhoods) {
+    	var nh_num = neighbourhoods[n].properties.NH_NUMBER;
+    	var sum = 0;
+      var c = 0;
+    	for (key in census_tract[0].features[58].properties) {
+    		if (key.includes("_5370" + nh_num + "_")) {
+    			sum += Number(census_tract[0].features[58].properties[key]);
+                c++;
+    		}
+    	}
+        if (isNaN(sum/c)) {
+            nh_hhs.push([nh_num, 0]);
+        } else {
+            nh_hhs.push([nh_num, sum/c]);
+        }
+    }
+}
+
+function maxHHSize() {
+    var max_hhs = 0;
+    for (i = 0; i < nh_ages.length; i++){
+        if (max_hhs < Number(nh_hhs[i][1])) {
+            max_hhs = Number(nh_hhs[i][1]);
+        }
+    }
+    return max_hhs;
+}
+
+function avgHHSize() {
+    var sum_hh = 0;
+    var amount = 0;
+    for (i = 0; i < nh_hhs.length; i++){
+        if (Number(nh_hhs[i][1]) > 0) {
+            sum_hh += Number(nh_hhs[i][1]);
+            amount++;
+        }
+    }
+    return sum_hh/amount;
+}
+
+function setHHSize() {
+    var max_hh = maxHHSize();
+    var avg_hh = avgHHSize();
+    for (i = 0; i < nh_hhs.length; i++){
+        if (Number(nh_hhs[i][1]) > 0) {
+            factors.factors[i].factor4 = (max_hh - Number(nh_hhs[i][1])) * 10 / max_hh;
+        } else {
+            factors.factors[i].factor4 = (max_hh - avg_hh) * 10 / max_hh;
+        }
+    }
+}
+
 
 $(document).ready(function() {
     sliders = document.getElementsByClassName("custom-range");

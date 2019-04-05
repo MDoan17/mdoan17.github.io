@@ -23,17 +23,22 @@
         <div style='width: 20vw; height: 100vh; float: right; padding: 10px; background-color:#EEE;'>
           <h2 style='text-align: center; border-bottom: solid 1px black;'>Hamilton Public WiFi Evaluator</h2>
           <button id='btn_wifi' class='btn' style='width: 100%;-'onclick="filterWiFi()">WiFi Locations Only</button>
-          <label for="weightRange1">Age Weight: <strong class='weights' id='w1'>7</strong></label>
-          <input type="range" value="35" class="custom-range" id="weightRange1">
-          <label for="weightRange2">Population Weight: <strong class='weights' id='w2'>2</strong></label>
-          <input type="range" value="10" class="custom-range" id="weightRange2">
-          <label for="weightRange3">Material Deprivation Weight: <strong class='weights' id='w3'>5</strong></label>
+          <label for="weightRange1">Age Weight: <strong class='weights' id='w1'>6</strong></label>
+          <input type="range" value="30" class="custom-range" id="weightRange1">
+          <label for="weightRange2">Population Weight: <strong class='weights' id='w2'>4</strong></label>
+          <input type="range" value="20" class="custom-range" id="weightRange2">
+          <label for="weightRange3">Population Density Weight: <strong class='weights' id='w3'>5</strong></label>
           <input type="range" value="25" class="custom-range" id="weightRange3">
-          <label for="weightRange4">Residentual Instability Weight: <strong class='weights' id='w4'>4</strong></label>
-          <input type="range" value="20" class="custom-range" id="weightRange4">
+          <label for="weightRange4">Household Size Weight: <strong class='weights' id='w4'>7</strong></label>
+          <input type="range" value="35" class="custom-range" id="weightRange4">
           <button id='btn_save' class='btn' style='width: 100%;-'onclick="updateWeights()">Save Weights</button>
           <div style='height: 1vh;'></div>
           <table style='width: 100%;'>
+            <tr>
+              <th colspan=2 style='text-align: center; font-weight: bold; font-size: small;'>Calculated Need</th>
+              <th></th>
+              <th colspan=2 style='text-align: center; font-weight: bold; font-size: small;'>Network Nodes</th>
+            </tr>
             <tr>
               <td rowspan=2>
                 <div style='width: 2vw; height: 10vh; background-image: linear-gradient(red, white, limegreen); float: right;'></div>
@@ -43,7 +48,7 @@
               <td>
                 <div style='width: 20px; height: 20px; background-color: blue; float: right; border-radius: 10px;'></div>
               </td>
-              <td>&nbsp;WiFi</td>
+              <td style='text-align: center;'>&nbsp;WiFi</td>
             </tr>
             <tr>
               <td style='vertical-align: bottom;'>&nbsp;Low</td>
@@ -51,7 +56,7 @@
               <td>
                 <div style='width: 20px; height: 20px; background-color: purple; float: right; border-radius: 10px;'></div>
               </td>
-              <td>&nbsp;No WiFi</td>
+              <td style='text-align: center;'>&nbsp;No WiFi</td>
             </tr>
           </table>
           <div style='width: 100%; height: 1vh; float: left; '></div>
