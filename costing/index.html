@@ -29,7 +29,11 @@
                 html += "<td>" + info[i] + "</td>"
             }
             rows += 1;
-            return html + "</tr>";
+            return html + "<td><button class='btn btn-danger btn-xs' onclick=removeRow(" + (rows - 1) + ")>X</button></td></tr>";
+        }
+
+        function removeRow(id) {
+            $('#row_'+id).remove();
         }
 
         function buildLanguages() {
@@ -112,8 +116,10 @@
 </head>
 <body>
     <div class='container'>
-        <div class='row'>
+        <div class='jumbotron'>
             <h1>Costing Assignment</h1>
+            <hr class="my-4" />
+            <p>Caleb Chenoweth, Mike Doan, Justin Hayter, Murray Lang</p>
         </div>
         <div class='row'>
             <div style='border-right: solid 1px lightgrey;' class='col-md-3 col-sm-3'>
@@ -213,13 +219,14 @@
                         <th>Model</th>
                         <th>Hourly Wage</th>
                         <th>People</th>
-                        <th>Database</th>
-                        <th>DB Complexity</th>
+                        <th>DB</th>
+                        <th>DB Comp</th>
                         <th>DB I/O</th>
-                        <th>DB Security</th>
+                        <th>DB Sec</th>
                         <th>KLOC</th>
                         <th>Cost</th>
                         <th>Time</th>
+                        <th>Remove</th>
                     </tr>
                 </table>
             </div>
