@@ -69,7 +69,7 @@
                 kloc += database_kloc
             }
             var time = Math.round(Math.pow(kloc, b[complex]) * a[complex] / $('#people').val() * 100) / 100;
-            var cost = Math.round(time * 8  * $('#people').val() * $('#cost').val() * (1 + 0.04 + 0.13 + 0.29) * 100) / 100;
+            var cost = Math.round(time * 8 * 21 * $('#people').val() * $('#cost').val() * (1 + 0.04 + 0.13 + 0.29) * 100) / 100;
 
             var effort = Math.pow(kloc, d[complex]) * c[complex];
             var x = $('#people').val() - effort / 3;
@@ -88,7 +88,7 @@
             $("#total_cost").val(final_cost);
 
             if ($('#due').val() != "") {
-                var time_left = new Date($('#start').val()).getTime() + time * 86400000 * 7/5;
+                var time_left = new Date($('#start').val()).getTime() + time * 2592000000 * 7/5;
                 if (time_left > new Date($('#due').val()).getTime()) {
                     $('#due_time').addClass('has-error');
                     $('#due_time').removeClass('has-success');
@@ -101,7 +101,7 @@
             }
 
             var new_row = [$("#fp").val(), $('#comp').val().toUpperCase(), languages[$('#lang').val()].LANGUAGE, $('#model').val().toUpperCase(), $('#cost').val(), $('#people').val(), $('#database')[0].checked, $('#complexity').val().toUpperCase()
-                              , entry + "/" + retrieval, $('#security')[0].checked, kloc, final_cost, time + " days"];
+                              , entry + "/" + retrieval, $('#security')[0].checked, kloc, final_cost, time + " months"];
             $('#results').append(addRow(new_row));
         }
 
@@ -195,7 +195,7 @@
                 <label>Cost</label><br />
                 <input class='form-control' type='text' id='total_cost' readonly/><br />
                 <!-- Time -->
-                <label>Time</label><br />
+                <label>Time (Months)</label><br />
                 <input class='form-control' type='text' id='time' readonly/><br />
                 <!-- Time -->
                 <div class="form-group has-success has-feedback" id='due_time'>
@@ -228,7 +228,7 @@
                         <th>DB Sec</th>
                         <th>KLOC</th>
                         <th>Cost</th>
-                        <th>Time</th>
+                        <th>Time (Months)</th>
                         <th>Remove</th>
                     </tr>
                 </table>
