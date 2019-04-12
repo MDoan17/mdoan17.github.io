@@ -1,0 +1,229 @@
+<html>
+<head>
+    <title>Costing Assignment</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <style>
+        .row [class*="col-"]{
+            margin-bottom: -99999px;
+            padding-bottom: 99999px;
+        }
+
+        .row{
+            overflow: hidden;
+        }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script type='text/javascript' src='language_prod.js'></script>
+    <script type='text/javascript'>
+        var cost_factor;
+        var a = [2.4, 3, 3.6];
+        var b = [1.05, 1.12, 1.2];
+        var c = [2.5, 2.5, 2.5];
+        var d = [0.38, 0.35, 0.32];
+        var rows = 0;
+
+        function addRow(info) {
+            var html = "<tr id='row_" + rows + "'>";
+            for (i = 0; i < info.length; i++) {
+                html += "<td>" + info[i] + "</td>"
+            }
+            rows += 1;
+            return html + "</tr>";
+        }
+
+        function buildLanguages() {
+            for (i = 0; i < languages.length; i++) {
+                $('#lang')[0].options[$('#lang')[0].options.length] = new Option(languages[i].LANGUAGE, i);
+            }
+        }
+
+        function submit() {
+            var complex = $('#comp').val() == 'low' ? 0 : $('#comp').val() == 'med' ? 1 : 2;
+            var kloc = $("#fp").val() * languages[Number($('#lang').val())].AVERAGE / 1000;
+            var entry = 0;
+            var retrieval = 0;
+
+            if ($('#model').val() == 'linear') {
+                kloc *= $("#fp").val() > 100 ? 1.2 : 1;
+            } else {
+                kloc *= $("#fp").val() < 100 ? 1.2 : 1;
+            }
+
+            var database_kloc = $('#database')[0].checked == true ? 4 : 0;
+            if (database_kloc > 0) {
+                database_kloc += $('#complexity').val() == 'simple' ? 2 : 3;
+                if ($('#entry').val() != "") {
+                    entry = $('#entry').val();
+                    database_kloc += 2 * entry;
+                }
+                if ($('#retrieval').val() != "") {
+                    retrieval = $('#retrieval').val();
+                    database_kloc += 2 * retrieval;
+                }
+                database_kloc += $('#security')[0].checked == true ? 3 : 0;
+                kloc += database_kloc
+            }
+            var time = Math.round(Math.pow(kloc, b[complex]) * a[complex] / $('#people').val() * 100) / 100;
+            var cost = Math.round(time * 8 * $('#cost').val() * (1 + 0.04 + 0.13 + 0.29) * 100) / 100;
+
+            var effort = Math.pow(kloc, d[complex]) * c[complex];
+            var x = $('#people').val() - effort / 5;
+
+            x = x > 0 ? x : 1;
+            x = x > effort ? effort : x;
+            cost_factor = (Math.pow(x, 2) / (10 * x)) + (Math.log(x) / 2 * (effort - x)) / effort;
+            cost_factor = cost_factor < 1 ? 1 : cost_factor;
+            var final_cost = "$" + Math.round(cost * cost_factor * 100) / 100;
+
+            $("#kloc").val(kloc);
+            $("#time").val(time);
+            $("#total_cost").val(final_cost);
+
+            if ($('#due').val() != "") {
+                var time_left = new Date($('#start').val()).getTime() + time * 86400000 * 7/5;
+                if (time_left > new Date($('#due').val()).getTime()) {
+                    $('#due_time').addClass('has-error');
+                    $('#due_time').removeClass('has-success');
+                    $('#due_time_out').val("No");
+                } else {
+                    $('#due_time').addClass('has-success');
+                    $('#due_time').removeClass('has-error');
+                    $('#due_time_out').val("Yes");
+                }
+            }
+
+            var new_row = [$("#fp").val(), $('#comp').val().toUpperCase(), languages[$('#lang').val()].LANGUAGE, $('#model').val().toUpperCase(), $('#cost').val(), $('#people').val(), $('#database')[0].checked, $('#complexity').val().toUpperCase()
+                              , entry + "/" + retrieval, $('#security')[0].checked, kloc, final_cost, time + " days"];
+            $('#results').append(addRow(new_row));
+        }
+
+        function databaseToggle() {
+            $('#complexity').attr('disabled', !$('#complexity')[0].hasAttribute('disabled'));
+            $('#entry').attr('readonly', !$('#entry')[0].hasAttribute('readonly'));
+            $('#retrieval').attr('readonly', !$('#retrieval')[0].hasAttribute('readonly'));
+            $('#security').attr('disabled', !$('#security')[0].hasAttribute('disabled'));
+        }
+
+        $(document).ready(function() {
+          buildLanguages();
+        });
+    </script>
+</head>
+<body>
+    <div class='container'>
+        <div class='row'>
+            <h1>Costing Assignment</h1>
+        </div>
+        <div class='row'>
+            <div style='border-right: solid 1px lightgrey;' class='col-md-3 col-sm-3'>
+                <!-- Inputs -->
+                <h3>Inputs</h3>
+                <!-- Function Points (text-field) -->
+                <label for='fp'>Function Points</label><br />
+                <input class='form-control' type='number' id='fp' /><br />
+                <!-- Complexity (drop-down) -->
+                <label for='comp'>Complexity</label><br />
+                <select class='form-control' id='comp'>
+                    <option value='low'>Low</option>
+                    <option value='med'>Medium</option>
+                    <option value='high'>High</option>
+                </select><br />
+                <!-- Language (drop-down) -->
+                <label for='lang'>Language</label><br />
+                <select class='form-control' id='lang'>
+                </select><br />
+                <!-- Model (drop-down) -->
+                <label for='lang'>Model</label><br />
+                <select class='form-control' id='model'>
+                    <option value='linear'>Linear</option>
+                    <option value='oo'>Object Oriented</option>
+                </select><br />
+                <!-- Cost (text-field) -->
+                <label for='cost'>Hourly Wage</label><br />
+                <input class='form-control' type='number' id='cost' /><br />
+                <!-- People (text-field) -->
+                <label for='people'>People</label><br />
+                <input class='form-control' type='number' id='people' /><br />
+            </div>
+            <div style='border-right: solid 1px lightgrey;' class='col-md-3 col-sm-3'>
+                <!-- Outputs -->
+                <h3>Other</h3>
+                <!-- Start Date -->
+                <label>Start Date</label><br />
+                <input class='form-control' type='date' id='start'/><br />
+                <!-- Due Date -->
+                <label>Due Date</label><br />
+                <input class='form-control' type='date' id='due'/><br />
+                <!-- Database -->
+                <div class='checkbox'>
+                  <label><input type='checkbox' id='database' onclick='databaseToggle()'/><strong>Database</strong></label><br />
+                </div>
+                <!-- Complexity -->
+                <label for='lang'>Complexity</label><br />
+                <select class='form-control' id='complexity' disabled>
+                    <option value='simple'>Simple</option>
+                    <option value='complex'>Complex</option>
+                </select><br />
+                <!-- Entry Points -->
+                <label>Entry Points</label><br />
+                <input class='form-control' type='number' id='entry' readonly/><br />
+                <!-- Retrieval Points -->
+                <label>Retrieval Points</label><br />
+                <input class='form-control' type='number' id='retrieval' readonly/><br />
+                <!-- Security -->
+                <div class='checkbox'>
+                  <label><input type='checkbox' id='security' disabled/><strong>Security</strong></label><br />
+                </div>
+            </div>
+            <div class='col-md-3 col-sm-3'>
+                <!-- Outputs -->
+                <h3>Outputs</h3>
+                <!-- Scope (KLOC) -->
+                <label>Scope (KLOC)</label><br />
+                <input class='form-control' type='text' id='kloc' readonly/><br />
+                <!-- Cost -->
+                <label>Cost</label><br />
+                <input class='form-control' type='text' id='total_cost' readonly/><br />
+                <!-- Time -->
+                <label>Time</label><br />
+                <input class='form-control' type='text' id='time' readonly/><br />
+                <!-- Time -->
+                <div class="form-group has-success has-feedback" id='due_time'>
+                    <label>Finish In Time</label><br />
+                    <input class='form-control success' type='text' id='due_time_out' value='Yes' readonly/><br />
+                </div>
+            </div>
+        </div>
+        <div class='row'>
+            <div class='col-md-3 col-sm-3'>
+                <!-- Submit (button) -->
+                <br />
+                <button class='btn btn-primary' name='submit' onclick='submit()'>Submit</button><br />
+            </div>
+        </div>
+        <br />
+        <div class='row'>
+            <div class='col-md-12 col-sm-12'>
+                <table class='table' id='results'>
+                    <tr>
+                        <th>FP</th>
+                        <th>Complexity</th>
+                        <th>Language</th>
+                        <th>Model</th>
+                        <th>Hourly Wage</th>
+                        <th>People</th>
+                        <th>Database</th>
+                        <th>DB Complexity</th>
+                        <th>DB I/O</th>
+                        <th>DB Security</th>
+                        <th>KLOC</th>
+                        <th>Cost</th>
+                        <th>Time</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
