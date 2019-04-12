@@ -69,15 +69,18 @@
                 kloc += database_kloc
             }
             var time = Math.round(Math.pow(kloc, b[complex]) * a[complex] / $('#people').val() * 100) / 100;
-            var cost = Math.round(time * 8 * $('#cost').val() * (1 + 0.04 + 0.13 + 0.29) * 100) / 100;
+            var cost = Math.round(time * 8  * $('#people').val() * $('#cost').val() * (1 + 0.04 + 0.13 + 0.29) * 100) / 100;
 
             var effort = Math.pow(kloc, d[complex]) * c[complex];
-            var x = $('#people').val() - effort / 5;
-
-            x = x > 0 ? x : 1;
-            x = x > effort ? effort : x;
-            cost_factor = (Math.pow(x, 2) / (10 * x)) + (Math.log(x) / 2 * (effort - x)) / effort;
-            cost_factor = cost_factor < 1 ? 1 : cost_factor;
+            var x = $('#people').val() - effort / 3;
+            x = x < 0 ? 1 : x;
+            var n = 0.4;
+            if (x > 3) {
+              cost_factor = (Math.pow(x - 3, 1 - n)) / (2 - n);
+              cost_factor = cost_factor < 0 ? 1 : cost_factor + 1;
+            } else {
+              cost_factor = 1;
+            }
             var final_cost = "$" + Math.round(cost * cost_factor * 100) / 100;
 
             $("#kloc").val(kloc);
