@@ -246,6 +246,7 @@
   </body>
   <script>
     var turnCount = 0;
+    var roundCount = 0;
     var dice = ['d1', 'd2', 'd3', 'd4', 'd5'];
     var dieNum = {};
     var game = 1;
@@ -389,9 +390,13 @@
 
         if (doesReset) {
           resetDice();
-          updateTable(1);
+          updateTable(game);
           if (target.id != 'c-YTZB')
             target.classList.add('displayNone');
+          roundCount++;
+          if (roundCount == 13) {
+              newGame();
+          }
         }
       }
     });
@@ -593,10 +598,19 @@
 
     function initialzie() {
       $('.pip').click(toggleHold);
-
       $('.die').click(toggleHold)
-
       $('.roll').click(roll);
+    }
+
+    function newGame() {
+        resetDice();
+        $('.choice').each(function() {
+            this.classList.remove('displayNone');
+        });
+        upper = ['','','','','',''];
+        lower = ['','','','','','','',0];
+        game = (game == 5 ? 1 : game + 1);
+        roundCount = 0;
     }
 
     initialzie();
