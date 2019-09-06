@@ -105,10 +105,6 @@ h1 {
   overflow-y: scroll;
 }
 
-.displayNone {
-  display: none;
-}
-
 .choice {
   width: 25%;
   height: 50px;
@@ -207,6 +203,14 @@ h1 {
 
 .die:hover {
   background: #888;
+}
+
+.die.disabled {
+    background: #444;
+}
+
+.die.disabled:hover {
+    background: #844;
 }
 
 .die.hold:hover {
@@ -313,4 +317,8 @@ h1 {
 .die.hold:hover > .pip {
   background: #977;
   box-shadow: inset -3px -3px 10px #422;
+}
+
+.displayNone {
+  display: none;
 }

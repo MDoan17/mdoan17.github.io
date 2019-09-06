@@ -14,19 +14,19 @@
       </div>
       <div class='dice-area'>
         <div class='dice'>
-          <div class='die' id='d1'>
+          <div class='die disabled' id='d1'>
             <div class='pip' id='p1'></div>
           </div>
-          <div class='die' id='d2'>
+          <div class='die disabled' id='d2'>
             <div class='pip' id='p1'></div>
           </div>
-          <div class='die' id='d3'>
+          <div class='die disabled' id='d3'>
             <div class='pip' id='p1'></div>
           </div>
-          <div class='die' id='d4'>
+          <div class='die disabled' id='d4'>
             <div class='pip' id='p1'></div>
           </div>
-          <div class='die' id='d5'>
+          <div class='die disabled' id='d5'>
             <div class='pip' id='p1'></div>
           </div>
         </div>
@@ -334,54 +334,66 @@
       while (!target.classList.contains('choice')) {
         target = target.parentNode;
       }
-      getDiceCounts();
-      switch(target.id) {
-        case 'c-ones':
-          upper[0] = scoreUpper(1);
-          break;
-        case 'c-twos':
-          upper[1] = scoreUpper(2);
-          break;
-        case 'c-threes':
-          upper[2] = scoreUpper(3);
-          break;
-        case 'c-fours':
-          upper[3] = scoreUpper(4);
-          break;
-        case 'c-fives':
-          upper[4] = scoreUpper(5);
-          break;
-        case 'c-sixes':
-          upper[5] = scoreUpper(6);
-          break;
-        case 'c-3ofK':
-          lower[0] = scoreLower(0);
-          break;
-        case 'c-4ofK':
-          lower[1] = scoreLower(1);
-          break;
-        case 'c-FH':
-          lower[2] = scoreLower(2);
-          break;
-        case 'c-SS':
-          lower[3] = scoreLower(3);
-          break;
-        case 'c-LS':
-          lower[4] = scoreLower(4);
-          break;
-        case 'c-YTZ':
-          lower[5] = scoreLower(5);
-          break;
-        case 'c-chance':
-          lower[6] = scoreLower(6);
-          break;
-        case 'c-YTZB':
-          lower[7] += scoreLower(7);
-          break;
-      }
 
-      resetDice();
-      updateTable(1);
+      var doesReset = true;
+      if (!target.classList.contains('disabled')) {
+        getDiceCounts();
+        switch(target.id) {
+          case 'c-ones':
+            upper[0] = scoreUpper(1);
+            break;
+          case 'c-twos':
+            upper[1] = scoreUpper(2);
+            break;
+          case 'c-threes':
+            upper[2] = scoreUpper(3);
+            break;
+          case 'c-fours':
+            upper[3] = scoreUpper(4);
+            break;
+          case 'c-fives':
+            upper[4] = scoreUpper(5);
+            break;
+          case 'c-sixes':
+            upper[5] = scoreUpper(6);
+            break;
+          case 'c-3ofK':
+            lower[0] = scoreLower(0);
+            break;
+          case 'c-4ofK':
+            lower[1] = scoreLower(1);
+            break;
+          case 'c-FH':
+            lower[2] = scoreLower(2);
+            break;
+          case 'c-SS':
+            lower[3] = scoreLower(3);
+            break;
+          case 'c-LS':
+            lower[4] = scoreLower(4);
+            break;
+          case 'c-YTZ':
+            lower[5] = scoreLower(5);
+            break;
+          case 'c-chance':
+            lower[6] = scoreLower(6);
+            break;
+          case 'c-YTZB':
+            var score = scoreLower(7);
+            if (score == 1)
+              lower[7]++
+            else
+              doesReset = false;
+            break;
+        }
+
+        if (doesReset) {
+          resetDice();
+          updateTable(1);
+          if (target.id != 'c-YTZB')
+            target.classList.add('displayNone');
+        }
+      }
     });
 
     function scoreUpper(slot) {
@@ -493,7 +505,7 @@
             counts[dieNum[i] - 1]++;
           }
           for (i in counts) {
-            if (counts[i] > 4 && lower[5] != '') {
+            if (counts[i] > 4 && lower[5] != '' && upper[i] != '') {
                 score = 1;
                 isSuccess = true;
             }
@@ -513,7 +525,8 @@
       while (!target.classList.contains('die')) {
         target = target.parentNode;
       }
-      target.classList.toggle('hold');
+      if (!target.classList.contains('disabled'))
+        target.classList.toggle('hold');
     }
 
     function setDie(id, num) {
@@ -535,6 +548,9 @@
       $('.choice').each(function(e) {
         this.classList.add('disabled');
       });
+      $('.die').each(function(e) {
+        this.classList.add('disabled');
+      });
     }
 
     function sleep(time) {
@@ -544,6 +560,9 @@
     function roll(e) {
       if (turnCount == 0) {
         $('.choice').each(function(e) {
+          this.classList.remove('disabled');
+        });
+        $('.die').each(function(e) {
           this.classList.remove('disabled');
         });
       }
@@ -574,10 +593,7 @@
     function initialzie() {
       $('.pip').click(toggleHold);
 
-      $('.die').click(function(e) {
-        if (e.target.classList.contains('die'))
-          e.target.classList.toggle('hold');
-      })
+      $('.die').click(toggleHold)
 
       $('.roll').click(roll);
     }
