@@ -15,19 +15,19 @@
       <div class='dice-area'>
         <div class='dice'>
           <div class='die disabled' id='d1'>
-            <div class='pip' id='p1'></div>
+            <div class='pip p1'></div>
           </div>
           <div class='die disabled' id='d2'>
-            <div class='pip' id='p1'></div>
+            <div class='pip p1'></div>
           </div>
           <div class='die disabled' id='d3'>
-            <div class='pip' id='p1'></div>
+            <div class='pip p1'></div>
           </div>
           <div class='die disabled' id='d4'>
-            <div class='pip' id='p1'></div>
+            <div class='pip p1'></div>
           </div>
           <div class='die disabled' id='d5'>
-            <div class='pip' id='p1'></div>
+            <div class='pip p1'></div>
           </div>
         </div>
         <div class='roll'>
@@ -529,18 +529,19 @@
         target.classList.toggle('hold');
     }
 
-    function setDie(id, num) {
+    function setDie(id, num, end) {
       $('#'+id)[0].classList.remove('hold');
       $('#'+id).empty();
       for (var i = 0; i < num; i++) {
-        $('#'+id).append("<div class='pip' id='p" + num + "'></div>");
-        $('#'+id+">#p"+num).click(toggleHold);
+        $('#'+id).append("<div class='pip p" + num + "'></div>");
       }
+      if (end)
+        $('#'+id+">.pip").click(toggleHold);
     }
 
     function resetDice() {
       for (i in dice)
-        setDie(dice[i], 1);
+        setDie(dice[i], 1, true);
       turnCount = 0;
       $('.counter').each(function(e) {
         this.classList.remove('done');
@@ -575,7 +576,7 @@
             $('.die').each(function(e) {
               if (!this.classList.contains('hold')) {
                 var num = Math.ceil(Math.random() * 6);
-                setDie(this.id, num);
+                setDie(this.id, num, false);
               }
             });
           });
@@ -584,7 +585,7 @@
         $('.die').each(function(e) {
           if (!this.classList.contains('hold')) {
             var num = Math.ceil(Math.random() * 6);
-            setDie(this.id, num);
+            setDie(this.id, num, true);
           }
         });
       }
