@@ -41,7 +41,6 @@ h1 {
   animation-name: openSidebar;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
-  animation-timing-function: linear;
 }
 
 .closeSidebar {
@@ -49,7 +48,6 @@ h1 {
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
   animation-direction: reverse;
-  animation-timing-function: linear;
 }
 
 @keyframes openSidebar {
@@ -75,7 +73,6 @@ h1 {
   animation-name: openSidebarBtn;
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
-  animation-timing-function: linear;
 }
 
 .closeSidebarBtn {
@@ -83,7 +80,6 @@ h1 {
   animation-duration: 0.5s;
   animation-fill-mode: forwards;
   animation-direction: reverse;
-  animation-timing-function: linear;
 }
 
 @keyframes openSidebarBtn {
