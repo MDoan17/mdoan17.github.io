@@ -1,0 +1,316 @@
+/* Bootstrap Theme */
+
+body {
+    color: #DDD;
+    background-color: #333;
+}
+
+th, td {
+  font-size: 16pt;
+}
+
+h1 {
+  text-align: center;
+  font-size: 72px;
+  margin-bottom: 50px;
+}
+
+.main {
+  width: 50%;
+  min-width: 750px;
+  margin: auto;
+  margin-top: 50px;
+}
+
+.sidebar {
+  position: absolute;
+  right: 0;
+  top: 25px;
+  bottom: 25px;
+  width: 4%;
+  min-width: 75px;
+  background: #AAA;
+  border-radius: 10px 0 0 10px;
+  border: solid 2px #777;
+  border-right: none;
+  cursor: pointer;
+  display: flex;
+}
+
+.openSidebar {
+  animation-name: openSidebar;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+.closeSidebar {
+  animation-name: openSidebar;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-direction: reverse;
+  animation-timing-function: linear;
+}
+
+@keyframes openSidebar {
+  0%   {width:4%;}
+  100% {width:96%}
+}
+
+.sidebar-btn {
+  width: 100%;
+  min-width: 75px;
+  height: 100%;
+  background: #AAA;
+  border-radius: 10px 0 0 10px;
+  display: inline-block;
+
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position-y: center;
+  background-blend-mode: overlay;
+}
+
+.openSidebarBtn {
+  animation-name: openSidebarBtn;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-timing-function: linear;
+}
+
+.closeSidebarBtn {
+  animation-name: openSidebarBtn;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+  animation-direction: reverse;
+  animation-timing-function: linear;
+}
+
+@keyframes openSidebarBtn {
+  0% {width:100%; opacity: 1;}
+  1% {opacity: 0;}
+  99% {opacity: 0;}
+  100% {width:4%; opacity: 1;}
+}
+
+.sidebar-btn:hover {
+  background-color: #888;
+}
+
+.scorecard {
+  float: right;
+  background: #AAA;
+  height: 100%;
+  flex-grow: 100;
+  overflow-y: scroll;
+}
+
+.displayNone {
+  display: none;
+}
+
+.choice {
+  width: 25%;
+  height: 50px;
+  margin: 50px 3.75% 0px 3.75%;
+  display: inline-block;
+  background: #AAA;
+  border-radius: 5px;
+  border: solid 2px #777;
+  cursor: pointer;
+  line-height: 46px;
+}
+
+.choice:hover {
+  background: #888;
+}
+
+.choice.disabled {
+  background: #444;
+}
+
+.choice.disabled:hover {
+  background: #844;
+}
+
+.btn-text {
+  width: 100%;
+  text-align: center;
+  font-size: 18pt;
+  font-weight: bolder;
+  color: #444;
+  display: inline-block;
+}
+
+.choice.disabled > .btn-text {
+  color: #AAA;
+}
+
+.roll {
+  width: 50%;
+  margin: auto;
+  margin-top: 50px;
+  height: 50px;
+  background: #AAA;
+  border-radius: 5px;
+  border: solid 2px #777;
+  cursor: pointer;
+  line-height: 46px;
+}
+
+.roll > .btn-text {
+  width: calc(100% - 14px);
+}
+
+.roll:hover {
+  background: #888;
+}
+
+.counters {
+  float: right;
+}
+
+.counter {
+  height: 10px;
+  width: 10px;
+  margin: 4px 4px 0px 0;
+  border-radius: 10px;
+  background: #DDD;
+  clear: left;
+}
+
+.counter.done {
+  background: #844;
+}
+
+.dice {
+  margin: auto;
+  height: 100px;
+  width: 750px;
+}
+
+.die {
+  width: 100px;
+  height: 100px;
+  margin: 0 25px 0 25px;
+  background: #AAA;
+  float: left;
+  border-radius: 10px;
+  border: solid 2px #777;
+  cursor: pointer;
+}
+
+.die.hold {
+  background: #ECC;
+  border-color: #977;
+}
+
+.die:hover {
+  background: #888;
+}
+
+.die.hold:hover {
+  background: #CAA;
+  border-color: #977;
+}
+
+.pip {
+  background: #777;
+  box-shadow: inset -3px -3px 10px #222;
+  height: 24px;
+  width: 24px;
+  border-radius: 24px;
+}
+
+.pip#p1 {
+  margin: 36px;
+}
+
+.pip#p2:nth-child(odd) {
+  margin: 6px 6px 36px 66px;
+}
+
+.pip#p2:nth-child(even) {
+  margin: 36px 66px 6px 6px;
+}
+
+.pip#p3:nth-child(3n+1) {
+  margin: 6px 6px 6px 66px;
+}
+
+.pip#p3:nth-child(3n+2) {
+  margin: 6px 36px 6px 36px;
+}
+
+.pip#p3:nth-child(3n) {
+  margin: 6px 36px 6px 6px;
+}
+
+.pip#p4:nth-child(4n+1) {
+  margin: 6px 6px 36px 6px;
+  display: inline-block;
+}
+
+.pip#p4:nth-child(4n+2) {
+  margin: 6px 6px 36px 6px;
+  float: right;
+}
+
+.pip#p4:nth-child(4n+3) {
+  margin: 0px 6px 6px 6px;
+  display: inline-block;
+}
+
+.pip#p4:nth-child(4n) {
+  margin: 0px 6px 6px 6px;
+  float: right;
+}
+
+.pip#p5:nth-child(5n+1) {
+  margin: 6px 6px 6px 6px;
+  display: inline-block;
+}
+
+.pip#p5:nth-child(5n+2) {
+  margin: 6px 6px 6px 6px;
+  float: right;
+}
+
+.pip#p5:nth-child(5n+3) {
+  margin: 0px 36px 6px 36px;
+}
+
+.pip#p5:nth-child(5n+4) {
+  margin: 0px 6px 6px 6px;
+  display: inline-block;
+}
+
+.pip#p5:nth-child(5n) {
+  margin: 0px 6px 6px 6px;
+  float: right;
+}
+
+.pip#p6:nth-child(odd) {
+  margin: 6px 6px 0px 6px;
+  display: inline-block;
+}
+
+.pip#p6:nth-child(even) {
+  margin: 6px 6px 0px 6px;
+  float: right;
+}
+
+.die.hold > .pip {
+  background: #B99;
+  box-shadow: inset -3px -3px 10px #644;
+}
+
+.die:hover > .pip {
+  background: #666;
+  box-shadow: inset -3px -3px 10px #111;
+}
+
+.die.hold:hover > .pip {
+  background: #977;
+  box-shadow: inset -3px -3px 10px #422;
+}

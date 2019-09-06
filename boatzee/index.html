@@ -1,0 +1,588 @@
+<html>
+  <head>
+    <title>Boatzee</title>
+    <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/overlay-styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class='main'>
+      <div>
+        <h1>Boatzee!</h1>
+      </div>
+      <div class='dice-area'>
+        <div class='dice'>
+          <div class='die' id='d1'>
+            <div class='pip' id='p1'></div>
+          </div>
+          <div class='die' id='d2'>
+            <div class='pip' id='p1'></div>
+          </div>
+          <div class='die' id='d3'>
+            <div class='pip' id='p1'></div>
+          </div>
+          <div class='die' id='d4'>
+            <div class='pip' id='p1'></div>
+          </div>
+          <div class='die' id='d5'>
+            <div class='pip' id='p1'></div>
+          </div>
+        </div>
+        <div class='roll'>
+          <div class='btn-text'>Roll!</div>
+          <div class='counters'>
+            <div class='counter' id='c1'></div>
+            <div class='counter' id='c2'></div>
+            <div class='counter' id='c3'></div>
+          </div>
+        </div>
+      </div>
+      <div class='choice-area'>
+        <div class='choice disabled' id='c-ones'><div class='btn-text'>Ones</div></div>
+        <div class='choice disabled' id='c-twos'><div class='btn-text'>Twos</div></div>
+        <div class='choice disabled' id='c-threes'><div class='btn-text'>Threes</div></div>
+        <div class='choice disabled' id='c-fours'><div class='btn-text'>Fours</div></div>
+        <div class='choice disabled' id='c-fives'><div class='btn-text'>Fives</div></div>
+        <div class='choice disabled' id='c-sixes'><div class='btn-text'>Sixes</div></div>
+        <div class='choice disabled' id='c-3ofK'><div class='btn-text'>3 of a Kind</div></div>
+        <div class='choice disabled' id='c-4ofK'><div class='btn-text'>4 of a Kind</div></div>
+        <div class='choice disabled' id='c-FH'><div class='btn-text'>Full House</div></div>
+        <div class='choice disabled' id='c-SS'><div class='btn-text'>Small Straight</div></div>
+        <div class='choice disabled' id='c-LS'><div class='btn-text'>Large Straight</div></div>
+        <div class='choice disabled' id='c-YTZ'><div class='btn-text'>Boatzee</div></div>
+        <div class='choice disabled' id='c-chance'><div class='btn-text'>Chance</div></div>
+        <div class='choice disabled' id='c-YTZB'><div class='btn-text'>Boatzee Bonus</div></div>
+      </div>
+    </div>
+    <div class='sidebar'>
+      <div class='sidebar-btn' style="background-image:url('static/images/scorecard.png');"></div>
+      <div class='scorecard displayNone'>
+        <table class='table'>
+          <tr>
+            <th>UPPER SECTION</th>
+            <th>HOW TO SCORE</th>
+            <th>GAME #1</th>
+            <th>GAME #2</th>
+            <th>GAME #3</th>
+            <th>GAME #4</th>
+            <th>GAME #5</th>
+          </tr>
+          <tr id='ones'>
+            <td>Aces</td>
+            <td>Count and add only Aces</td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='twos'>
+            <td>Twos</td>
+            <td>Count and add only Twos</td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='threes'>
+            <td>Threes</td>
+            <td>Count and add only Threes</td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='fours'>
+            <td>Fours</td>
+            <td>Count and add only Fours</td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='fives'>
+            <td>Fives</td>
+            <td>Count and add only Fives</td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='sixes'>
+            <td>Sixes</td>
+            <td>Count and add only Sixes</td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='upperSum'>
+            <td>TOTAL SCORE</td>
+            <td></td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='upperBonus'>
+            <td>Bonus (>= 63)</td>
+            <td>SCORE 35</td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='upperTotal'>
+            <td>UPPER TOTAL</td>
+            <td></td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='3ofK'>
+            <td>3 of a Kind</td>
+            <td>Add Total of All Dice</td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='4ofK'>
+            <td>4 of a Kind</td>
+            <td>Add Total of All Dice</td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='FH'>
+            <td>Full House</td>
+            <td>SCORE 25</td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='SS'>
+            <td>Small Straight</td>
+            <td>SCORE 30</td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='LS'>
+            <td>Large Straight</td>
+            <td>SCORE 40</td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='YTZ'>
+            <td>BOATZEE</td>
+            <td>SCORE 50</td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='chance'>
+            <td>Chance</td>
+            <td>Add Total of All Dice</td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='YTZB'>
+            <td>BONUS BOATZEE</td>
+            <td>SCORE 100 Each</td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='lowerSum'>
+            <td>LOWER TOTAL</td>
+            <td></td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+          <tr id='grandTotal'>
+            <td>GRAND TOTAL</td>
+            <td></td>
+            <td class='g1'></td>
+            <td class='g2'></td>
+            <td class='g3'></td>
+            <td class='g4'></td>
+            <td class='g5'></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </body>
+  <script>
+    var turnCount = 0;
+    var dice = ['d1', 'd2', 'd3', 'd4', 'd5'];
+    var dieNum = {};
+    var game = 1;
+
+    var upper = ['','','','','',''];
+    var lower = ['','','','','','','',0];
+
+    var LOWER_SCORE_MULTIPLIER = [1,1,25,30,40,50,1,100];
+
+    function replaceWithClone(ele) {
+      var newone = ele.cloneNode(true);
+      ele.parentNode.replaceChild(newone, ele);
+    }
+
+    function siderbarClick(e) {
+      replaceWithClone(e.target.parentNode);
+      if (!$('.sidebar')[0].classList.contains('openSidebar')) {
+        $('.sidebar')[0].classList.add('openSidebar');
+        $('.sidebar')[0].classList.remove('closeSidebar');
+        $('.sidebar-btn')[0].classList.add('openSidebarBtn');
+        $('.sidebar-btn')[0].classList.remove('closeSidebarBtn');
+        sleep(1000).then(() => {
+          $('.scorecard')[0].classList.toggle('displayNone');
+        });
+      } else {
+        $('.sidebar')[0].classList.remove('openSidebar');
+        $('.sidebar')[0].classList.add('closeSidebar');
+        $('.sidebar-btn')[0].classList.remove('openSidebarBtn');
+        $('.sidebar-btn')[0].classList.add('closeSidebarBtn');
+        $('.scorecard')[0].classList.toggle('displayNone');
+      }
+      $('.sidebar-btn').click(siderbarClick);
+    }
+
+    function getDiceCounts() {
+      $('.die').each(function(e) {
+        dieNum[this.id] = this.children.length;
+      });
+    }
+
+    function updateTable(game) {
+      var gameClass = 'g' + game;
+
+      //UPPER
+      $('tr#ones').children('td.' + gameClass)[0].innerText = upper[0];
+      $('tr#twos').children('td.' + gameClass)[0].innerText = upper[1];
+      $('tr#threes').children('td.' + gameClass)[0].innerText = upper[2];
+      $('tr#fours').children('td.' + gameClass)[0].innerText = upper[3];
+      $('tr#fives').children('td.' + gameClass)[0].innerText = upper[4];
+      $('tr#sixes').children('td.' + gameClass)[0].innerText = upper[5];
+
+      upperSum = 0;
+      for (i in upper) {
+        if (upper[i] != '')
+          upperSum += upper[i];
+      }
+      bonus = upperSum >= 63 ? 35 : 0;
+      $('tr#upperSum').children('td.' + gameClass)[0].innerText = upperSum;
+      $('tr#upperBonus').children('td.' + gameClass)[0].innerText = bonus;
+      $('tr#upperTotal').children('td.' + gameClass)[0].innerText = upperSum + bonus;
+
+      //Lower
+      $('tr#3ofK').children('td.' + gameClass)[0].innerText = lower[0];
+      $('tr#4ofK').children('td.' + gameClass)[0].innerText = lower[1];
+      $('tr#FH').children('td.' + gameClass)[0].innerText = lower[2];
+      $('tr#SS').children('td.' + gameClass)[0].innerText = lower[3];
+      $('tr#LS').children('td.' + gameClass)[0].innerText = lower[4];
+      $('tr#YTZ').children('td.' + gameClass)[0].innerText = lower[5];
+      $('tr#chance').children('td.' + gameClass)[0].innerText = lower[6];
+      $('tr#YTZB').children('td.' + gameClass)[0].innerText = lower[7];
+
+      lowerSum = 0
+      for (i in lower) {
+        if (lower[i] != '')
+          lowerSum += lower[i];
+      }
+      $('tr#lowerSum').children('td.' + gameClass)[0].innerText = lowerSum;
+      $('tr#grandTotal').children('td.' + gameClass)[0].innerText = lowerSum + upperSum + bonus;
+
+    }
+
+    $('.sidebar-btn').click(siderbarClick);
+
+    $('.choice').click(function(e) {
+      var target = e.target;
+      while (!target.classList.contains('choice')) {
+        target = target.parentNode;
+      }
+      getDiceCounts();
+      switch(target.id) {
+        case 'c-ones':
+          upper[0] = scoreUpper(1);
+          break;
+        case 'c-twos':
+          upper[1] = scoreUpper(2);
+          break;
+        case 'c-threes':
+          upper[2] = scoreUpper(3);
+          break;
+        case 'c-fours':
+          upper[3] = scoreUpper(4);
+          break;
+        case 'c-fives':
+          upper[4] = scoreUpper(5);
+          break;
+        case 'c-sixes':
+          upper[5] = scoreUpper(6);
+          break;
+        case 'c-3ofK':
+          lower[0] = scoreLower(0);
+          break;
+        case 'c-4ofK':
+          lower[1] = scoreLower(1);
+          break;
+        case 'c-FH':
+          lower[2] = scoreLower(2);
+          break;
+        case 'c-SS':
+          lower[3] = scoreLower(3);
+          break;
+        case 'c-LS':
+          lower[4] = scoreLower(4);
+          break;
+        case 'c-YTZ':
+          lower[5] = scoreLower(5);
+          break;
+        case 'c-chance':
+          lower[6] = scoreLower(6);
+          break;
+        case 'c-YTZB':
+          lower[7] += scoreLower(7);
+          break;
+      }
+
+      resetDice();
+      updateTable(1);
+    });
+
+    function scoreUpper(slot) {
+      var score = 0;
+      for (i in dieNum) {
+        if (dieNum[i] == slot)
+          score++;
+      }
+      return (score * slot);
+    }
+
+    function scoreLower(category) {
+      var isSuccess = false;
+      var score = 0;
+      var counts = [0,0,0,0,0,0];
+
+      switch(category) {
+        case 0: //3 of a Kind
+          for (i in dieNum) {
+            score += dieNum[i];
+            counts[dieNum[i] - 1]++;
+          }
+          for (i in counts) {
+            if (counts[i] > 2)
+              isSuccess = true;
+          }
+          break;
+        case 1: //4 of a Kind
+          for (i in dieNum) {
+            score += dieNum[i];
+            counts[dieNum[i] - 1]++;
+          }
+          for (i in counts) {
+            if (counts[i] > 3)
+              isSuccess = true;
+          }
+          break;
+        case 2: //Full House
+          for (i in dieNum) {
+            counts[dieNum[i] - 1]++;
+          }
+
+          var sets = [false, false];
+          for (i in counts) {
+            if (counts[i] == 2)
+                sets[0] = true
+            else if (counts[i] == 3)
+                sets[1] = true
+          }
+          if (sets[0] && sets[1]) {
+            score = 1;
+            isSuccess = true;
+          }
+          break;
+        case 3: //Small Straight
+          for (i in dieNum) {
+            counts[dieNum[i] - 1]++;
+          }
+          var length = 0;
+          for (i in counts) {
+            if (counts[i] == 0 && length != 4) {
+              length = 0;
+            } else if (counts[i] > 0) {
+              length++;
+            }
+          }
+          if (length > 3) {
+            score = 1;
+            isSuccess = true;
+          }
+          break;
+        case 4: //Large Straight
+          for (i in dieNum) {
+            counts[dieNum[i] - 1]++;
+          }
+          var length = 0;
+          for (i in counts) {
+            if (counts[i] == 0 && length != 5) {
+              length = 0;
+            } else if (counts[i] > 0) {
+              length++;
+            }
+          }
+          if (length > 4) {
+            score = 1;
+            isSuccess = true;
+          }
+          break;
+        case 5: //Yahtzee
+          for (i in dieNum) {
+            counts[dieNum[i] - 1]++;
+          }
+          for (i in counts) {
+            if (counts[i] > 4) {
+                score = 1;
+                isSuccess = true;
+            }
+          }
+          break;
+        case 6: //Chance
+          for (i in dieNum) {
+            score += dieNum[i];
+            counts[dieNum[i] - 1]++;
+          }
+          isSuccess = true;
+          break;
+        case 7: //Bonus
+          for (i in dieNum) {
+            counts[dieNum[i] - 1]++;
+          }
+          for (i in counts) {
+            if (counts[i] > 4 && lower[5] != '') {
+                score = 1;
+                isSuccess = true;
+            }
+          }
+          break;
+      }
+
+      if (isSuccess) {
+        return score * LOWER_SCORE_MULTIPLIER[category];
+      } else {
+        return 0;
+      }
+    }
+
+    function toggleHold(e) {
+      var target = e.target;
+      while (!target.classList.contains('die')) {
+        target = target.parentNode;
+      }
+      target.classList.toggle('hold');
+    }
+
+    function setDie(id, num) {
+      $('#'+id)[0].classList.remove('hold');
+      $('#'+id).empty();
+      for (var i = 0; i < num; i++) {
+        $('#'+id).append("<div class='pip' id='p" + num + "'></div>");
+        $('#'+id+">#p"+num).click(toggleHold);
+      }
+    }
+
+    function resetDice() {
+      for (i in dice)
+        setDie(dice[i], 1);
+      turnCount = 0;
+      $('.counter').each(function(e) {
+        this.classList.remove('done');
+      });
+      $('.choice').each(function(e) {
+        this.classList.add('disabled');
+      });
+    }
+
+    function sleep(time) {
+      return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
+    function roll(e) {
+      if (turnCount == 0) {
+        $('.choice').each(function(e) {
+          this.classList.remove('disabled');
+        });
+      }
+      if (turnCount < 3) {
+        $('.counter')[turnCount].classList.add('done');
+        turnCount++;
+
+        for (var i = 0; i < 250; i++) {
+          sleep(50).then(() => {
+            $('.die').each(function(e) {
+              if (!this.classList.contains('hold')) {
+                var num = Math.ceil(Math.random() * 6);
+                setDie(this.id, num);
+              }
+            });
+          });
+        }
+
+        $('.die').each(function(e) {
+          if (!this.classList.contains('hold')) {
+            var num = Math.ceil(Math.random() * 6);
+            setDie(this.id, num);
+          }
+        });
+      }
+    }
+
+    function initialzie() {
+      $('.pip').click(toggleHold);
+
+      $('.die').click(function(e) {
+        if (e.target.classList.contains('die'))
+          e.target.classList.toggle('hold');
+      })
+
+      $('.roll').click(roll);
+    }
+
+    initialzie();
+
+  </script>
+</html>
